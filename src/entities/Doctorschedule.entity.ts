@@ -1,0 +1,32 @@
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Medicalschedule } from "./Medicalschedule.entity";
+import { Doctors } from "./Doctors.entity";
+
+@Index("DoctorSchedule_index_15", ["doctorUuid", "scheduleId", "shiftDate"], {})
+@Index("schedule_id", ["scheduleId"], {})
+@Entity("doctorschedule", { schema: "sisinfo" })
+export class Doctorschedule {
+  @Column("char", { primary: true, name: "doctor_uuid", length: 36 })
+  doctorUuid: string;
+
+  @Column("int", { primary: true, name: "schedule_id" })
+  scheduleId: number;
+
+  @Column("date", { primary: true, name: "shift_date" })
+  shiftDate: string;
+
+  @ManyToOne(
+    () => Medicalschedule,
+    (medicalschedule) => medicalschedule.doctorschedules,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([{ name: "schedule_id", referencedColumnName: "scheduleId" }])
+  schedule: Medicalschedule;
+
+  @ManyToOne(() => Doctors, (doctors) => doctors.doctorschedules, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "doctor_uuid", referencedColumnName: "doctorUuid" }])
+  doctorUu: Doctors;
+}
