@@ -9,8 +9,8 @@ import {
 import { Appointments } from "./Appointments.entity";
 import { Medicalhistory } from "./Medicalhistory.entity";
 
-@Index("appointment_id", ["appointmentId"], {})
 @Index("Consultation_index_18", ["timeStart", "timeEnd"], {})
+@Index("appointment_id", ["appointmentId"], {})
 @Entity("consultation", { schema: "sisinfo" })
 export class Consultation {
   @Column("int", { primary: true, name: "consultation_id" })

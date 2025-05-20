@@ -2,7 +2,6 @@ import {
   Column,
   Entity,
   Index,
-  JoinTable,
   ManyToMany,
   OneToMany,
   OneToOne,
@@ -14,12 +13,14 @@ import { Useraddressing } from "./Useraddressing.entity";
 import { Userparentalsupervisor } from "./Userparentalsupervisor.entity";
 import { Role } from "./Role.entity";
 
-@Index("user_ci", ["userCi"], { unique: true })
 @Index("user_email", ["userEmail"], { unique: true })
 @Index("Users_index_0", ["userEmail"], { unique: true })
+@Index("IDX_643a0bfb9391001cf11e581bdd", ["userEmail"], { unique: true })
+@Index("user_ci", ["userCi"], { unique: true })
+@Index("Users_index_3", ["userCi"], { unique: true })
+@Index("IDX_681838db68d417f72f523e2a0e", ["userCi"], { unique: true })
 @Index("Users_index_1", ["birthDate"], {})
 @Index("Users_index_2", ["phone"], {})
-@Index("Users_index_3", ["userCi"], { unique: true })
 @Entity("users", { schema: "sisinfo" })
 export class Users {
   @Column("char", { primary: true, name: "user_uuid", length: 36 })
@@ -56,14 +57,6 @@ export class Users {
     () => Healthcareinstitution,
     (healthcareinstitution) => healthcareinstitution.users
   )
-  @JoinTable({
-    name: "institutionadmin",
-    joinColumns: [{ name: "user_uuid", referencedColumnName: "userUuid" }],
-    inverseJoinColumns: [
-      { name: "institution_uuid", referencedColumnName: "institutionUuid" },
-    ],
-    schema: "sisinfo",
-  })
   healthcareinstitutions: Healthcareinstitution[];
 
   @OneToOne(() => Patients, (patients) => patients.userUu)
@@ -74,22 +67,16 @@ export class Users {
 
   @OneToMany(
     () => Userparentalsupervisor,
-    (userparentalsupervisor) => userparentalsupervisor.supervisorUu
+    (userparentalsupervisor) => userparentalsupervisor.userUu
   )
   userparentalsupervisors: Userparentalsupervisor[];
 
   @OneToMany(
     () => Userparentalsupervisor,
-    (userparentalsupervisor) => userparentalsupervisor.userUu
+    (userparentalsupervisor) => userparentalsupervisor.supervisorUu
   )
   userparentalsupervisors2: Userparentalsupervisor[];
 
   @ManyToMany(() => Role, (role) => role.users)
-  @JoinTable({
-    name: "usersrole",
-    joinColumns: [{ name: "user_uuid", referencedColumnName: "userUuid" }],
-    inverseJoinColumns: [{ name: "role_id", referencedColumnName: "roleId" }],
-    schema: "sisinfo",
-  })
   roles: Role[];
 }

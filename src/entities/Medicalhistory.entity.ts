@@ -10,6 +10,7 @@ import { Consultation } from "./Consultation.entity";
 import { Patients } from "./Patients.entity";
 
 @Index("consultation_id", ["consultationId"], { unique: true })
+@Index("IDX_663a568db482c8ff9372019af4", ["consultationId"], { unique: true })
 @Index("MedicalHistory_index_19", ["patientUuid"], {})
 @Entity("medicalhistory", { schema: "sisinfo" })
 export class Medicalhistory {

@@ -2,6 +2,7 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Examschedule } from "./Examschedule.entity";
 
 @Index("exam_status_name", ["examStatusName"], { unique: true })
+@Index("IDX_bbf3e148a20a9d0553bdadec98", ["examStatusName"], { unique: true })
 @Entity("examstatus", { schema: "sisinfo" })
 export class Examstatus {
   @Column("int", { primary: true, name: "exam_status_id" })

@@ -2,6 +2,7 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Medicalschedule } from "./Medicalschedule.entity";
 
 @Index("shift_name", ["shiftName"], { unique: true })
+@Index("IDX_90fce739521f7996ddd675796f", ["shiftName"], { unique: true })
 @Entity("medicalshift", { schema: "sisinfo" })
 export class Medicalshift {
   @Column("int", { primary: true, name: "shift_id" })

@@ -2,7 +2,7 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Medicalschedule } from "./Medicalschedule.entity";
 import { Doctors } from "./Doctors.entity";
 
-@Index("DoctorSchedule_index_15", ["doctorUuid", "scheduleId", "shiftDate"], {})
+@Index("DoctorSchedule_index_15", ["doctorUuid", "shiftDate", "scheduleId"], {})
 @Index("schedule_id", ["scheduleId"], {})
 @Entity("doctorschedule", { schema: "sisinfo" })
 export class Doctorschedule {

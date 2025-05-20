@@ -2,6 +2,9 @@ import { Column, Entity, Index, OneToMany } from "typeorm";
 import { Structureservicetype } from "./Structureservicetype.entity";
 
 @Index("structure_type_name", ["structureTypeName"], { unique: true })
+@Index("IDX_92d2db4f061813e549e7038fc0", ["structureTypeName"], {
+  unique: true,
+})
 @Entity("structuretype", { schema: "sisinfo" })
 export class Structuretype {
   @Column("int", { primary: true, name: "structure_type_id" })
