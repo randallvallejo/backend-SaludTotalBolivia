@@ -1,13 +1,20 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Examtype } from "./Examtype.entity";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Examstatus } from "./Examstatus.entity";
+import { Examtype } from "./Examtype.entity";
 
 @Index("exam_status_id", ["examStatusId"], {})
 @Index("exam_type_id", ["examTypeId"], {})
 @Index("ExamSchedule_index_21", ["patientUuid", "scheduledDate"], {})
 @Entity("examschedule", { schema: "sisinfo" })
 export class Examschedule {
-  @Column("int", { primary: true, name: "exam_schedule_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "exam_schedule_id" })
   examScheduleId: number;
 
   @Column("int", { name: "exam_type_id" })
@@ -31,13 +38,6 @@ export class Examschedule {
   @Column("varchar", { name: "notes", nullable: true, length: 255 })
   notes: string | null;
 
-  @ManyToOne(() => Examtype, (examtype) => examtype.examschedules, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "exam_type_id", referencedColumnName: "examTypeId" }])
-  examType: Examtype;
-
   @ManyToOne(() => Examstatus, (examstatus) => examstatus.examschedules, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -46,4 +46,11 @@ export class Examschedule {
     { name: "exam_status_id", referencedColumnName: "examStatusId" },
   ])
   examStatus: Examstatus;
+
+  @ManyToOne(() => Examtype, (examtype) => examtype.examschedules, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "exam_type_id", referencedColumnName: "examTypeId" }])
+  examType: Examtype;
 }

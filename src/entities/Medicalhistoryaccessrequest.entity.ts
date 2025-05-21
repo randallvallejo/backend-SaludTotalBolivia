@@ -1,6 +1,13 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Requesttype } from "./Requesttype.entity";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Accessrequeststatus } from "./Accessrequeststatus.entity";
+import { Requesttype } from "./Requesttype.entity";
 
 @Index(
   "MedicalHistoryAccessRequest_index_20",
@@ -11,7 +18,7 @@ import { Accessrequeststatus } from "./Accessrequeststatus.entity";
 @Index("status_id", ["statusId"], {})
 @Entity("medicalhistoryaccessrequest", { schema: "sisinfo" })
 export class Medicalhistoryaccessrequest {
-  @Column("int", { primary: true, name: "request_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "request_id" })
   requestId: number;
 
   @Column("char", { name: "patient_uuid", length: 36 })
@@ -39,6 +46,14 @@ export class Medicalhistoryaccessrequest {
   notes: string | null;
 
   @ManyToOne(
+    () => Accessrequeststatus,
+    (accessrequeststatus) => accessrequeststatus.medicalhistoryaccessrequests,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([{ name: "status_id", referencedColumnName: "statusId" }])
+  status: Accessrequeststatus;
+
+  @ManyToOne(
     () => Requesttype,
     (requesttype) => requesttype.medicalhistoryaccessrequests,
     { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
@@ -47,12 +62,4 @@ export class Medicalhistoryaccessrequest {
     { name: "request_type_id", referencedColumnName: "requestTypeId" },
   ])
   requestType: Requesttype;
-
-  @ManyToOne(
-    () => Accessrequeststatus,
-    (accessrequeststatus) => accessrequeststatus.medicalhistoryaccessrequests,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([{ name: "status_id", referencedColumnName: "statusId" }])
-  status: Accessrequeststatus;
 }

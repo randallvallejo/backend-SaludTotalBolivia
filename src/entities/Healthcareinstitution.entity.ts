@@ -3,11 +3,13 @@ import {
   Entity,
   Index,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
 } from "typeorm";
 import { Appointments } from "./Appointments.entity";
+import { Doctorinstitution } from "./Doctorinstitution.entity";
 import { Structureservicetype } from "./Structureservicetype.entity";
 import { Address } from "./Address.entity";
 import { Users } from "./Users.entity";
@@ -31,6 +33,12 @@ export class Healthcareinstitution {
   @OneToMany(() => Appointments, (appointments) => appointments.institutionUu)
   appointments: Appointments[];
 
+  @OneToMany(
+    () => Doctorinstitution,
+    (doctorinstitution) => doctorinstitution.institutionUu
+  )
+  doctorinstitutions: Doctorinstitution[];
+
   @ManyToOne(
     () => Structureservicetype,
     (structureservicetype) => structureservicetype.healthcareinstitutions,
@@ -45,8 +53,28 @@ export class Healthcareinstitution {
   structureService: Structureservicetype;
 
   @ManyToMany(() => Address, (address) => address.healthcareinstitutions)
+  @JoinTable({
+    name: "institutionaddressing",
+    joinColumns: [
+      { name: "institution_uuid", referencedColumnName: "institutionUuid" },
+    ],
+    inverseJoinColumns: [
+      { name: "address_id", referencedColumnName: "addressId" },
+    ],
+    schema: "sisinfo",
+  })
   addresses: Address[];
 
   @ManyToMany(() => Users, (users) => users.healthcareinstitutions)
+  @JoinTable({
+    name: "institutionadmin",
+    joinColumns: [
+      { name: "institution_uuid", referencedColumnName: "institutionUuid" },
+    ],
+    inverseJoinColumns: [
+      { name: "user_uuid", referencedColumnName: "userUuid" },
+    ],
+    schema: "sisinfo",
+  })
   users: Users[];
 }

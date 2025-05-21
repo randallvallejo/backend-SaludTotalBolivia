@@ -8,8 +8,8 @@ import {
 } from "typeorm";
 import { Appointments } from "./Appointments.entity";
 import { Doctorschedule } from "./Doctorschedule.entity";
-import { Medicalservice } from "./Medicalservice.entity";
 import { Medicalshift } from "./Medicalshift.entity";
+import { Medicalservice } from "./Medicalservice.entity";
 
 @Index("medical_service_id", ["medicalServiceId"], {})
 @Index("MedicalSchedule_index_14", ["shiftId", "medicalServiceId"], {
@@ -39,6 +39,14 @@ export class Medicalschedule {
   doctorschedules: Doctorschedule[];
 
   @ManyToOne(
+    () => Medicalshift,
+    (medicalshift) => medicalshift.medicalschedules,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([{ name: "shift_id", referencedColumnName: "shiftId" }])
+  shift: Medicalshift;
+
+  @ManyToOne(
     () => Medicalservice,
     (medicalservice) => medicalservice.medicalschedules,
     { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
@@ -47,12 +55,4 @@ export class Medicalschedule {
     { name: "medical_service_id", referencedColumnName: "medicalServiceId" },
   ])
   medicalService: Medicalservice;
-
-  @ManyToOne(
-    () => Medicalshift,
-    (medicalshift) => medicalshift.medicalschedules,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([{ name: "shift_id", referencedColumnName: "shiftId" }])
-  shift: Medicalshift;
 }

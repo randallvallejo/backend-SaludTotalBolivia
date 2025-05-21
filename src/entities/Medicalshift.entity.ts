@@ -1,10 +1,17 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Medicalschedule } from "./Medicalschedule.entity";
 
+@Index("IDX_90fce739521f7996ddd675796f", ["shiftName"], { unique: true })
 @Index("shift_name", ["shiftName"], { unique: true })
 @Entity("medicalshift", { schema: "sisinfo" })
 export class Medicalshift {
-  @Column("int", { primary: true, name: "shift_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "shift_id" })
   shiftId: number;
 
   @Column("varchar", { name: "shift_name", unique: true, length: 25 })

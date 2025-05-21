@@ -7,8 +7,8 @@ import {
   OneToMany,
 } from "typeorm";
 import { Healthcareinstitution } from "./Healthcareinstitution.entity";
-import { Structuretype } from "./Structuretype.entity";
 import { Servicetype } from "./Servicetype.entity";
+import { Structuretype } from "./Structuretype.entity";
 
 @Index("service_type_id", ["serviceTypeId"], {})
 @Index("StructureServiceType_index_7", ["structureTypeId", "serviceTypeId"], {
@@ -32,16 +32,6 @@ export class Structureservicetype {
   healthcareinstitutions: Healthcareinstitution[];
 
   @ManyToOne(
-    () => Structuretype,
-    (structuretype) => structuretype.structureservicetypes,
-    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
-  )
-  @JoinColumn([
-    { name: "structure_type_id", referencedColumnName: "structureTypeId" },
-  ])
-  structureType: Structuretype;
-
-  @ManyToOne(
     () => Servicetype,
     (servicetype) => servicetype.structureservicetypes,
     { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
@@ -50,4 +40,14 @@ export class Structureservicetype {
     { name: "service_type_id", referencedColumnName: "serviceTypeId" },
   ])
   serviceType: Servicetype;
+
+  @ManyToOne(
+    () => Structuretype,
+    (structuretype) => structuretype.structureservicetypes,
+    { onDelete: "NO ACTION", onUpdate: "NO ACTION" }
+  )
+  @JoinColumn([
+    { name: "structure_type_id", referencedColumnName: "structureTypeId" },
+  ])
+  structureType: Structuretype;
 }

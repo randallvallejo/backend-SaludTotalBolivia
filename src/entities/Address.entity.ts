@@ -3,7 +3,6 @@ import {
   Entity,
   Index,
   JoinColumn,
-  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToMany,
@@ -36,14 +35,6 @@ export class Address {
     () => Healthcareinstitution,
     (healthcareinstitution) => healthcareinstitution.addresses
   )
-  @JoinTable({
-    name: "institutionaddressing",
-    joinColumns: [{ name: "address_id", referencedColumnName: "addressId" }],
-    inverseJoinColumns: [
-      { name: "institution_uuid", referencedColumnName: "institutionUuid" },
-    ],
-    schema: "sisinfo",
-  })
   healthcareinstitutions: Healthcareinstitution[];
 
   @OneToMany(() => Useraddressing, (useraddressing) => useraddressing.address)

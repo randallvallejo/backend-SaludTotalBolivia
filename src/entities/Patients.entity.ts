@@ -12,6 +12,7 @@ import { Medicalhistory } from "./Medicalhistory.entity";
 import { Users } from "./Users.entity";
 import { Bloodtype } from "./Bloodtype.entity";
 
+@Index("IDX_d694c42a6b9d1a1db463f15e8b", ["userUuid"], { unique: true })
 @Index("Patients_index_4", ["userUuid"], { unique: true })
 @Index("Patients_index_5", ["bloodTypeId"], {})
 @Index("user_uuid", ["userUuid"], { unique: true })

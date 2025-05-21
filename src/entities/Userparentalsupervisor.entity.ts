@@ -1,6 +1,6 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Typeofsupervision } from "./Typeofsupervision.entity";
 import { Users } from "./Users.entity";
+import { Typeofsupervision } from "./Typeofsupervision.entity";
 
 @Index("relationship_type_id", ["relationshipTypeId"], {})
 @Index("user_uuid", ["userUuid"], {})
@@ -24,6 +24,13 @@ export class Userparentalsupervisor {
   @Column("date", { name: "end_date", nullable: true })
   endDate: string | null;
 
+  @ManyToOne(() => Users, (users) => users.userparentalsupervisors, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "user_uuid", referencedColumnName: "userUuid" }])
+  userUu: Users;
+
   @ManyToOne(
     () => Typeofsupervision,
     (typeofsupervision) => typeofsupervision.userparentalsupervisors,
@@ -37,17 +44,10 @@ export class Userparentalsupervisor {
   ])
   relationshipType: Typeofsupervision;
 
-  @ManyToOne(() => Users, (users) => users.userparentalsupervisors, {
+  @ManyToOne(() => Users, (users) => users.userparentalsupervisors2, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
   })
   @JoinColumn([{ name: "supervisor_uuid", referencedColumnName: "userUuid" }])
   supervisorUu: Users;
-
-  @ManyToOne(() => Users, (users) => users.userparentalsupervisors2, {
-    onDelete: "NO ACTION",
-    onUpdate: "NO ACTION",
-  })
-  @JoinColumn([{ name: "user_uuid", referencedColumnName: "userUuid" }])
-  userUu: Users;
 }
