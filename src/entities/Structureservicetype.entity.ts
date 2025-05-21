@@ -10,10 +10,10 @@ import { Healthcareinstitution } from "./Healthcareinstitution.entity";
 import { Servicetype } from "./Servicetype.entity";
 import { Structuretype } from "./Structuretype.entity";
 
+@Index("service_type_id", ["serviceTypeId"], {})
 @Index("StructureServiceType_index_7", ["structureTypeId", "serviceTypeId"], {
   unique: true,
 })
-@Index("service_type_id", ["serviceTypeId"], {})
 @Entity("structureservicetype", { schema: "sisinfo" })
 export class Structureservicetype {
   @Column("int", { primary: true, name: "structure_service_id" })

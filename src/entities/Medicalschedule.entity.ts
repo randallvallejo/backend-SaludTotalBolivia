@@ -11,10 +11,10 @@ import { Doctorschedule } from "./Doctorschedule.entity";
 import { Medicalshift } from "./Medicalshift.entity";
 import { Medicalservice } from "./Medicalservice.entity";
 
+@Index("medical_service_id", ["medicalServiceId"], {})
 @Index("MedicalSchedule_index_14", ["shiftId", "medicalServiceId"], {
   unique: true,
 })
-@Index("medical_service_id", ["medicalServiceId"], {})
 @Entity("medicalschedule", { schema: "sisinfo" })
 export class Medicalschedule {
   @Column("int", { primary: true, name: "schedule_id" })

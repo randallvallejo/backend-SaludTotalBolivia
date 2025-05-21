@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { State } from "./State.entity";
 import { Doctors } from "./Doctors.entity";
@@ -19,12 +20,12 @@ import { Consultation } from "./Consultation.entity";
   ["institutionUuid", "patientUuid", "stateId"],
   {}
 )
-@Index("state_id", ["stateId"], {})
-@Index("schedule_id", ["scheduleId"], {})
 @Index("patient_uuid", ["patientUuid"], {})
+@Index("schedule_id", ["scheduleId"], {})
+@Index("state_id", ["stateId"], {})
 @Entity("appointments", { schema: "sisinfo" })
 export class Appointments {
-  @Column("int", { primary: true, name: "appointment_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "appointment_id" })
   appointmentId: number;
 
   @Column("char", { name: "institution_uuid", length: 36 })

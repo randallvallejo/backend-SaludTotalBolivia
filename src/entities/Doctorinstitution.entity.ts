@@ -2,8 +2,8 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Doctors } from "./Doctors.entity";
 import { Healthcareinstitution } from "./Healthcareinstitution.entity";
 
-@Index("idx_institution", ["institutionUuid"], {})
 @Index("idx_active_status", ["isActive"], {})
+@Index("idx_institution", ["institutionUuid"], {})
 @Entity("doctorinstitution", { schema: "sisinfo" })
 export class Doctorinstitution {
   @Column("char", { primary: true, name: "doctor_uuid", length: 36 })

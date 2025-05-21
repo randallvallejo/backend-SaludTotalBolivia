@@ -5,15 +5,16 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Appointments } from "./Appointments.entity";
 import { Medicalhistory } from "./Medicalhistory.entity";
 
-@Index("Consultation_index_18", ["timeStart", "timeEnd"], {})
 @Index("appointment_id", ["appointmentId"], {})
+@Index("Consultation_index_18", ["timeStart", "timeEnd"], {})
 @Entity("consultation", { schema: "sisinfo" })
 export class Consultation {
-  @Column("int", { primary: true, name: "consultation_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "consultation_id" })
   consultationId: number;
 
   @Column("int", { name: "appointment_id" })

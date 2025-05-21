@@ -2,8 +2,8 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Users } from "./Users.entity";
 import { Typeofsupervision } from "./Typeofsupervision.entity";
 
-@Index("user_uuid", ["userUuid"], {})
 @Index("relationship_type_id", ["relationshipTypeId"], {})
+@Index("user_uuid", ["userUuid"], {})
 @Entity("userparentalsupervisor", { schema: "sisinfo" })
 export class Userparentalsupervisor {
   @Column("char", { primary: true, name: "supervisor_uuid", length: 36 })

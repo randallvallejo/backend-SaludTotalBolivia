@@ -1,13 +1,20 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Examstatus } from "./Examstatus.entity";
 import { Examtype } from "./Examtype.entity";
 
-@Index("ExamSchedule_index_21", ["patientUuid", "scheduledDate"], {})
-@Index("exam_type_id", ["examTypeId"], {})
 @Index("exam_status_id", ["examStatusId"], {})
+@Index("exam_type_id", ["examTypeId"], {})
+@Index("ExamSchedule_index_21", ["patientUuid", "scheduledDate"], {})
 @Entity("examschedule", { schema: "sisinfo" })
 export class Examschedule {
-  @Column("int", { primary: true, name: "exam_schedule_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "exam_schedule_id" })
   examScheduleId: number;
 
   @Column("int", { name: "exam_type_id" })

@@ -16,8 +16,8 @@ export class DoctorsService {
     async createDoctor(createDoctorDto: CreateDoctorDto): Promise<{message: string, data:any}> {
         const executed = await this.databaseService.executeStoredProcedure<Doctors>('ConvertUserToDoctorWithSpecialty', [
             createDoctorDto.doctorCi,
-            createDoctorDto.yearsOfExperience,
-            createDoctorDto.specialty
+            createDoctorDto.yearsOfExperience ?? 0,
+            createDoctorDto.specialty ?? 'Medicina general'
         ]);
         executed.message = 'Doctor created successfully';
         return executed;

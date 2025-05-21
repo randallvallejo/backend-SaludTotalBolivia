@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToOne,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Consultation } from "./Consultation.entity";
 import { Patients } from "./Patients.entity";
@@ -14,7 +15,7 @@ import { Patients } from "./Patients.entity";
 @Index("MedicalHistory_index_19", ["patientUuid"], {})
 @Entity("medicalhistory", { schema: "sisinfo" })
 export class Medicalhistory {
-  @Column("int", { primary: true, name: "medical_history_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "medical_history_id" })
   medicalHistoryId: number;
 
   @Column("int", { name: "consultation_id", unique: true })

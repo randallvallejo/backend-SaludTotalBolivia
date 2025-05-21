@@ -1,4 +1,11 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { Accessrequeststatus } from "./Accessrequeststatus.entity";
 import { Requesttype } from "./Requesttype.entity";
 
@@ -7,11 +14,11 @@ import { Requesttype } from "./Requesttype.entity";
   ["patientUuid", "institutionUuid", "statusId"],
   {}
 )
-@Index("status_id", ["statusId"], {})
 @Index("request_type_id", ["requestTypeId"], {})
+@Index("status_id", ["statusId"], {})
 @Entity("medicalhistoryaccessrequest", { schema: "sisinfo" })
 export class Medicalhistoryaccessrequest {
-  @Column("int", { primary: true, name: "request_id" })
+  @PrimaryGeneratedColumn({ type: "int", name: "request_id" })
   requestId: number;
 
   @Column("char", { name: "patient_uuid", length: 36 })

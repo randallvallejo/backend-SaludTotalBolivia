@@ -2,10 +2,10 @@ import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Users } from "./Users.entity";
 import { Address } from "./Address.entity";
 
+@Index("address_id", ["addressId"], {})
 @Index("UserAddressing_index_12", ["userUuid", "addressId", "actualDate"], {
   unique: true,
 })
-@Index("address_id", ["addressId"], {})
 @Entity("useraddressing", { schema: "sisinfo" })
 export class Useraddressing {
   @Column("char", { primary: true, name: "user_uuid", length: 36 })

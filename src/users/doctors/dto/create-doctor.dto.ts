@@ -1,12 +1,12 @@
-import {IsNotEmpty, IsNumber, IsString, IsDateString } from "class-validator";
+import {IsNotEmpty, IsNumber, IsString, IsDateString,IsOptional } from "class-validator";
 export class CreateDoctorDto {
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
     doctorCi: number;
+    @IsOptional()
     @IsNumber()
-    @IsNotEmpty()
-    yearsOfExperience: number;
+    yearsOfExperience?: number;
+    @IsOptional()
     @IsString()
-    @IsNotEmpty()
-    specialty: string;
+    specialty?: string;
 }

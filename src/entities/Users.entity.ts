@@ -13,14 +13,14 @@ import { Useraddressing } from "./Useraddressing.entity";
 import { Userparentalsupervisor } from "./Userparentalsupervisor.entity";
 import { Role } from "./Role.entity";
 
+@Index("IDX_643a0bfb9391001cf11e581bdd", ["userEmail"], { unique: true })
+@Index("IDX_681838db68d417f72f523e2a0e", ["userCi"], { unique: true })
+@Index("user_ci", ["userCi"], { unique: true })
 @Index("user_email", ["userEmail"], { unique: true })
 @Index("Users_index_0", ["userEmail"], { unique: true })
-@Index("IDX_643a0bfb9391001cf11e581bdd", ["userEmail"], { unique: true })
-@Index("user_ci", ["userCi"], { unique: true })
-@Index("Users_index_3", ["userCi"], { unique: true })
-@Index("IDX_681838db68d417f72f523e2a0e", ["userCi"], { unique: true })
 @Index("Users_index_1", ["birthDate"], {})
 @Index("Users_index_2", ["phone"], {})
+@Index("Users_index_3", ["userCi"], { unique: true })
 @Entity("users", { schema: "sisinfo" })
 export class Users {
   @Column("char", { primary: true, name: "user_uuid", length: 36 })
