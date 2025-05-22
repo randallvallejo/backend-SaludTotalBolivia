@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
-import { CreateDoctorDto,CreateBaseDoctorDto } from './dto/create-doctor.dto';
+import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { SearchDoctorByCiDto } from './dto/search-doctor-by.dto';
 
 

@@ -4,6 +4,7 @@ import { Users } from '../entities/Users.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginDto } from  './dto/login.dto'; 
 import { SearchUserByCiDto,SearchUserByEmailDto } from './dto/search-user-by.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -107,4 +108,19 @@ export class UsersService {
             }
         };
     }
+    async loginbyCi(LoginDto: LoginDto): Promise<{exist: boolean, message: string }> {
+        const UserExist = await this.usersRepository.findOne({select: ['userCi'] , 
+        where: { userCi: LoginDto.userCi} });
+        if (!!UserExist)
+        {
+            return { exist : !!UserExist, 
+            message: 'User Exist'
+        }
+        }
+        else {
+        return { exist : !!UserExist, 
+            message: 'User dont Exist'
+        }
+    }
+    } 
 }

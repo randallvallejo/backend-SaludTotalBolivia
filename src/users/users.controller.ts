@@ -1,6 +1,7 @@
 import { Controller,Post,Get, Body,Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginDto } from './dto/login.dto';
 
 @Controller('users')
 export class UsersController {
@@ -25,4 +26,10 @@ export class UsersController {
     async getUserByCi(@Body() searchUserByCiDto: any) {
         return this.usersService.getUserByCi(searchUserByCiDto);
     }
+    @Post('login')
+    async loginCi(@Body() loginUser : LoginDto) {
+        return this.usersService.loginbyCi(loginUser); 
+
+    }
+    
 }
