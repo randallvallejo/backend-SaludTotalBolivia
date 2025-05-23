@@ -7,4 +7,8 @@ export default () => ({
         database: process.env.DATABASE_NAME,
         type: process.env.DATABASE_TYPE as 'mysql',
     },
+    frontend: {
+        origin: process.env.FRONTEND_ORIGIN,
+        methods: process.env.FRONTEND_METHODS
+    }
 });

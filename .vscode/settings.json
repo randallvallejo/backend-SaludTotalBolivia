@@ -1,19 +1,3 @@
 {
     "material-icon-theme.activeIconPack": "nest",
-    "sqltools.connections": [
-        {
-            "mysqlOptions": {
-                "authProtocol": "default",
-                "enableSsl": "Disabled"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "driver": "MySQL",
-            "name": "saludTotal",
-            "database": "sisinfo",
-            "password": "Password_salud_total_db_1#.",
-            "username": "salud_total_db"
-        }
-    ]
 }
