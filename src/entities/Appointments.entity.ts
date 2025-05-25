@@ -7,9 +7,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Appointmentmedicalanalysis } from "./Appointmentmedicalanalysis.entity";
 import { State } from "./State.entity";
 import { Doctors } from "./Doctors.entity";
 import { Patients } from "./Patients.entity";
+import { Speciality } from "./Speciality.entity";
 import { Healthcareinstitution } from "./Healthcareinstitution.entity";
 import { Medicalschedule } from "./Medicalschedule.entity";
 import { Consultation } from "./Consultation.entity";
@@ -22,6 +24,7 @@ import { Consultation } from "./Consultation.entity";
 )
 @Index("patient_uuid", ["patientUuid"], {})
 @Index("schedule_id", ["scheduleId"], {})
+@Index("speciality_id", ["specialityId"], {})
 @Index("state_id", ["stateId"], {})
 @Entity("appointments", { schema: "sisinfo" })
 export class Appointments {
@@ -46,6 +49,15 @@ export class Appointments {
   @Column("int", { name: "state_id" })
   stateId: number;
 
+  @Column("int", { name: "speciality_id" })
+  specialityId: number;
+
+  @OneToMany(
+    () => Appointmentmedicalanalysis,
+    (appointmentmedicalanalysis) => appointmentmedicalanalysis.appointment
+  )
+  appointmentmedicalanalyses: Appointmentmedicalanalysis[];
+
   @ManyToOne(() => State, (state) => state.appointments, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",
@@ -66,6 +78,13 @@ export class Appointments {
   })
   @JoinColumn([{ name: "patient_uuid", referencedColumnName: "patientUuid" }])
   patientUu: Patients;
+
+  @ManyToOne(() => Speciality, (speciality) => speciality.appointments, {
+    onDelete: "NO ACTION",
+    onUpdate: "NO ACTION",
+  })
+  @JoinColumn([{ name: "speciality_id", referencedColumnName: "specialityId" }])
+  speciality: Speciality;
 
   @ManyToOne(
     () => Healthcareinstitution,
