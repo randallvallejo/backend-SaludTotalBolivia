@@ -16,4 +16,13 @@ export class HealthInstitucionController {
     async getAllInstituciones() {
         return await this.healthInstitucionService.getAllInstituciones();
     }
+    @Get('/test')
+    async test() {
+        return {
+            institutionName: 'Test Institution',
+            institutionAddress: '123 Main St',
+            institutionPhone: '555-1234',
+            fundationDate: new Date()
+        }
+    }
 }
