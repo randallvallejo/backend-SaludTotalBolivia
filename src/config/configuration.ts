@@ -10,5 +10,11 @@ export default () => ({
     frontend: {
         origin: process.env.FRONTEND_ORIGIN,
         methods: process.env.FRONTEND_METHODS
-    }
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        signOptions: {
+            expiresIn: process.env.JWT_EXPIRES_IN || '1h',
+        },
+    },
 });

@@ -11,6 +11,7 @@ import { DoctorsModule } from './doctors/doctors.module';
     DoctorsModule
   ],
   controllers: [UsersController],
-  providers: [UsersService, ]
+  providers: [UsersService, ],
+  exports: [UsersService]
 })
 export class UsersModule {}
