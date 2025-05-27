@@ -9,6 +9,7 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 import { StoredProcedureModule } from './database/storedprocedure/storedprocedure.module';
 import { UsersModule } from './users/users.module';
 import { HealthInstitucionModule } from './health-institucion/health-institucion.module';
+import { AuthModule } from './auth/auth.module';
 import config from './config/configuration';
 
 @Module({
@@ -28,7 +29,7 @@ import config from './config/configuration';
       entities: [ __dirname + '/**/*.entity{.ts,.js}' ],
       synchronize: true
     })
-  }),StoredProcedureModule, UsersModule, HealthInstitucionModule],
+  }),StoredProcedureModule, UsersModule, HealthInstitucionModule, AuthModule],
   controllers: [AppController],
   providers: [AppService, DatabaseService,
     {

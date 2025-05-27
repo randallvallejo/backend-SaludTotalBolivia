@@ -7,6 +7,8 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { SearchUserByCiDto,SearchUserByEmailDto } from './dto/search-user-by.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
+
+
 @Injectable()
 export class UsersService {
     constructor(private databaseService: DatabaseService,
@@ -106,5 +108,12 @@ export class UsersService {
                 updatedData: modifiedData
             }
         };
+    }
+    async getRolesbyCi(searchUserByCiDto: SearchUserByCiDto):Promise<string[]> {
+        const rolesData = await this.databaseService.executeStoredProcedure<{data: string}[]>('GetUserRolesByCI', [ searchUserByCiDto.userCi ]);
+        const roles = rolesData.data.map(role => {
+            return role.roleName;
+        });
+        return roles;
     }
 }
