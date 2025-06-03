@@ -18,7 +18,7 @@ export class DatabaseService {
         procedureName: string,
         params: (string | number | Date | boolean)[] = [],
         entityType?: new () => T
-    ): Promise<{ message: string; data: T[] | any[] }> {
+    ): Promise<any> {
         if (!procedureName?.trim()) {
             throw new Error('Procedure name is required');
         }
@@ -29,10 +29,7 @@ export class DatabaseService {
                 params,
                 entityType
             );
-            return {
-                message: 'Executing stored procedure',
-                data: result
-            };
+            return result;
         } catch (error) {
             const errorMessage = `Error executing procedure ${procedureName}: ${error.message}`;
             console.error(errorMessage, error.stack);
