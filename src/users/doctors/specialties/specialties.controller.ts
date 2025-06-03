@@ -14,14 +14,6 @@ export class SpecialtiesController {
     async getAllSpecialties() {
         return this.specialtiesService.getAllSpecialties();
     }
-    @Get('/search/id')
-    async getSpecialtyById(@Body() searchSpecialtyById:SearchSpecialtyById) {
-        return this.specialtiesService.getSpecialtyById(searchSpecialtyById);
-    }
-    @Get('/search/name')
-    async getSpecialtyByName(@Body() searchSpecialtyByName:SearchSpecialtyByName) {
-        return this.specialtiesService.getSpecialtyByName(searchSpecialtyByName);
-    }
     @Get('/id/:id')
     async getSpecialtyByIdParam(@Param('id') id: number) {
         const searchSpecialtyById = new SearchSpecialtyById();
