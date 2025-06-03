@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { SearchDoctorByCiDto } from './dto/search-doctor-by.dto';
+import { GetDoctorsScheduleDto } from './dto/get-doctors-schedule.dto';
 
 @Injectable()
 export class DoctorsService {
@@ -27,6 +28,15 @@ export class DoctorsService {
             searchDoctor.doctorCi
         ]);
         executed.message = 'Doctor found successfully';
+        return executed;
+    }
+    async getDoctorSchedule(searchDoctor:GetDoctorsScheduleDto):Promise<any>{
+        const executed = await this.databaseService.executeStoredProcedure<Doctors>('GetDoctorSchedules', [
+            searchDoctor.doctorCi,
+            searchDoctor.institutionName,
+            searchDoctor.department,
+            searchDoctor.specialty
+        ]);
         return executed;
     }
 }

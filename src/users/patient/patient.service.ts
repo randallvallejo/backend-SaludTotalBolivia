@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SearchUserByCiDto } from '../dto/search-user-by.dto';
 import { PatientInfoDto } from './dto/patirnt-info.dto';
+import { ReservAppointmentDto } from './dto/reserv-appointment';
 
 @Injectable()
 export class PatientService {
@@ -34,11 +35,13 @@ export class PatientService {
         const patientInfo = await this.databaseService.executeStoredProcedure<PatientInfoDto>('GetPatientDetailsWithAddress', [
             searchUserByCiDto.userCi
         ]);
-        const patientInfoData = patientInfo.data[0] as PatientInfoDto;
+        console.log('Patient Info:', patientInfo);
+        const patientInfoData = patientInfo[0] as PatientInfoDto;
         if (patientInfoData){
             if(patientInfoData.Detalles === null || patientInfoData.Detalles === undefined) {
                 patientInfoData.Detalles = 'Sin Detalles';
             }
+            console.log('Patient Info Data:', patientInfoData);
         }
         return {
             message: 'Patient info found successfully',
@@ -53,5 +56,22 @@ export class PatientService {
             message: 'Patient appointments found successfully',
             appointments: appointments
         };
+    }
+    async reservAppointment(appointmentData: ReservAppointmentDto):Promise<any>{
+        const formattedDate = new Date(appointmentData.date);
+        appointmentData.date = formattedDate.toISOString().split('T')[0]; // Format date to YYYY-MM-DD
+        appointmentData.department = appointmentData.department.toLowerCase();
+        console.log('Formatted Date:', appointmentData);
+        const reservAppointment = await this.databaseService.executeStoredProcedure('CreateAppointment', [
+            appointmentData.patientCi,
+            appointmentData.doctorCi,
+            appointmentData.specialty,
+            appointmentData.date,
+            appointmentData.institutionName,
+            appointmentData.department,
+            appointmentData.shift,
+            appointmentData.startTime
+        ]);
+        return reservAppointment;
     }
 }

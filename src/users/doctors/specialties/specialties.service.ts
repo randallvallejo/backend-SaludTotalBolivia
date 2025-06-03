@@ -14,7 +14,7 @@ export class SpecialtiesService {
         private readonly databaseService: DatabaseService
     ) {}
     async createSpecialty(createSpecialtyDto: CreateSpecialtyDto): Promise<{message: string, data: any}> {
-        const specialty = this.databaseService.executeStoredProcedure('InsertSpecialty', [createSpecialtyDto.specialty]);
+        const specialty = this.databaseService.executeStoredProcedure('InsertSpecialty', [createSpecialtyDto.specialty.toLowerCase()]);
         if (!specialty) {
             return { message: 'Error creating specialty', data: null };
         }
@@ -30,7 +30,7 @@ export class SpecialtiesService {
         return specialty;
     }
     async getSpecialtyByName(searchSpecialtyByName: SearchSpecialtyByName) {
-        const specialty = await this.specialtyRepository.findOne({ where: {specialityName: searchSpecialtyByName.specialtyName } });
+        const specialty = await this.specialtyRepository.findOne({ where: {specialityName: searchSpecialtyByName.specialtyName.toLowerCase() } });
         return specialty;
     }
 }

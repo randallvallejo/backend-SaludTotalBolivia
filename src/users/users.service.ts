@@ -24,6 +24,7 @@ export class UsersService {
         if (userFound) {
             throw new Error('User already exists');
         }
+        console.log('Creating user with address:', createUserDto);
         const user = await this.databaseService.executeStoredProcedure<Users>('CreateUserWithAddress', [
             createUserDto.userCi,
             createUserDto.userEmail,
@@ -33,10 +34,10 @@ export class UsersService {
             createUserDto.name,
             createUserDto.lastName,
             createUserDto.birthDate,
-            createUserDto.bloodType,
-            createUserDto.departament,
-            createUserDto.province,
-            createUserDto.street
+            createUserDto.bloodType.toLowerCase(),
+            createUserDto.departament.toLowerCase(),
+            createUserDto.province.toLowerCase(),
+            createUserDto.street.toLowerCase(),
         ]);
         user.message = 'User created successfully';
         return user;
@@ -111,7 +112,7 @@ export class UsersService {
     }
     async getRolesbyCi(searchUserByCiDto: SearchUserByCiDto):Promise<string[]> {
         const rolesData = await this.databaseService.executeStoredProcedure<{data: string}[]>('GetUserRolesByCI', [ searchUserByCiDto.userCi ]);
-        const roles = rolesData.data.map(role => {
+        const roles = rolesData.map(role => {
             return role.roleName;
         });
         return roles;

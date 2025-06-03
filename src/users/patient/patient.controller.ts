@@ -2,6 +2,7 @@ import { Controller,Get,Post,Body } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { SearchUserByCiDto } from '../dto/search-user-by.dto';
 import { Patients } from 'src/entities/Patients.entity';
+import { ReservAppointmentDto } from './dto/reserv-appointment';
 @Controller('patient')
 export class PatientController {
     constructor(private readonly patientService: PatientService) {}
@@ -20,5 +21,10 @@ export class PatientController {
     @Get('/appointments')
     async getPatientAppointmentsByCi(@Body() searchUserByCiDto: SearchUserByCiDto): Promise<{message: string, appointments: any}> {
         return this.patientService.getPatientAppointmentsByCi(searchUserByCiDto);
+    }
+    @Post('/reserv-appointment')
+    async reservAppointment(@Body() appointmentData: ReservAppointmentDto): Promise<any> {
+        console.log('Appointment Data:', appointmentData);
+        return this.patientService.reservAppointment(appointmentData);
     }
 }
