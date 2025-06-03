@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get,Param, Post, Body } from '@nestjs/common';
 import { DoctorsService } from './doctors.service';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { SearchDoctorByCiDto } from './dto/search-doctor-by.dto';
@@ -12,8 +12,8 @@ export class DoctorsController {
     async createDoctor(@Body() createDoctorDto: CreateDoctorDto) {
         return this.doctorsService.createDoctor(createDoctorDto);
     }
-    @Get('search/ci')
-    async getDoctorByCi(@Body() searchDoctorByCiDto: SearchDoctorByCiDto) {
-        return this.doctorsService.getDoctorByCi(searchDoctorByCiDto);
+    @Get('search/ci/:ci')
+    async getDoctorByCi(@Param('ci') ci: number) {
+        return this.doctorsService.getDoctorByCi({ doctorCi: ci });
     }
 }

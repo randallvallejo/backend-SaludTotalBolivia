@@ -1,4 +1,4 @@
-import { Controller,Get,Post,Body } from '@nestjs/common';
+import { Controller,Get,Post,Body,Param } from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { SearchUserByCiDto } from '../dto/search-user-by.dto';
 import { Patients } from 'src/entities/Patients.entity';
@@ -10,17 +10,17 @@ export class PatientController {
     async getAllPatients(): Promise<{message: string, patients: Patients[]}> {
         return this.patientService.getAllPatients();
     }
-    @Get('/details')
-    async getPatientByCi(@Body() searchUserByCiDto: SearchUserByCiDto): Promise<{message: string, patient: any}> {
-        return this.patientService.getPatientByCi(searchUserByCiDto);
+    @Get('/details/:ci')
+    async getPatientByCi(@Param() ci:number ): Promise<any> {
+        return this.patientService.getPatientByCi({ userCi: ci });
     }
-    @Get('/info')
-    async getPatientInfoByCi(@Body() searchUserByCiDto: SearchUserByCiDto): Promise<{message: string, patientInfo: any}> {
-        return this.patientService.getPatientInfoByCi(searchUserByCiDto);
+    @Get('/info/:ci')
+    async getPatientInfoByCi(@Param() ci:number): Promise<any> {
+        return this.patientService.getPatientInfoByCi({ userCi: ci });
     }
-    @Get('/appointments')
-    async getPatientAppointmentsByCi(@Body() searchUserByCiDto: SearchUserByCiDto): Promise<{message: string, appointments: any}> {
-        return this.patientService.getPatientAppointmentsByCi(searchUserByCiDto);
+    @Get('/appointments/:ci')
+    async getPatientAppointmentsByCi(@Param() ci:number): Promise<any> {
+        return this.patientService.getPatientAppointmentsByCi({ userCi: ci });
     }
     @Post('/reserv-appointment')
     async reservAppointment(@Body() appointmentData: ReservAppointmentDto): Promise<any> {
